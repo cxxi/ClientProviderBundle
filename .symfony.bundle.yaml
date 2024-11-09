@@ -1,0 +1,6 @@
+branches: ["1.x"]
+maintained_branches: ["1.x"]
+current_branch: "1.x"
+dev_branch: "1.x"
+dev_branch_alias: "1.x"
+doc_dir: "doc/"
