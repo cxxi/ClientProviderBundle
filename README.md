@@ -138,7 +138,7 @@ public function __construct(
 ){}
 ```
 
-Alternatively you can use named injection to autowire the ProviderRegistry with a certain provider type mounted :
+Alternatively you can use named injection to autowire the ProviderRegistry with a definite provider type :
 
 
 ```php
