@@ -65,7 +65,7 @@ use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
 use App\Provider\PaymentProvider;
 
 
-#[AsClientProvider(name: 'stripe')]
+#[AsClientProvider('stripe')]
 class Stripe extends PaymentProvider
 {
 	public function makePayment(): bool
@@ -86,7 +86,7 @@ use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
 use App\Provider\PaymentProvider;
 
 
-#[AsClientProvider(name: 'adyen')]
+#[AsClientProvider('adyen')]
 class Adyen extends PaymentProvider
 {
 	public function makePayment(): bool
@@ -96,6 +96,55 @@ class Adyen extends PaymentProvider
 }
 ```
 
+```php
+#[AsProvider(name: 'payment', default: 'stripe')]
+```
+
+```yaml
+# config/services.yaml
+parameters:
+	app.default.payment_provider: stripe
+```
+
+```php
+#[AsProvider(name: 'payment', default: '%app.default.payment_provider%')]
+```
+
+```php
+#[AsClientProvider(name: 'adyen', standalone: true)]
+```
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
+
+public function __construct(
+    private ProviderInterface $stripePaymentProvider
+){}
+```
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
+
+public function __construct(
+	private ProviderInterface $paymentProvider
+){}
+```
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
+
+public function __construct(
+    private ProviderRegistryInterface $providerRegistry
+){}
+```
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
+
+public function __construct(
+    private ProviderRegistryInterface $paymentProviderRegistry
+){}
+```
 
 Maintainers
 -----------
