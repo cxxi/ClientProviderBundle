@@ -58,11 +58,14 @@ use Cxxi\ClientProviderBundle\Attribute\AsProvider;
 #[AsProvider('payment')]
 abstract class PaymentProvider implements ProviderInterface
 {
-	// Example method must be implemented by all clients
+	// Example method must be implemented by all provider's clients
 	abstract public function makePayment(): bool;
 
-	// Example method available for all clients
-	protected function getProduct(): Product;
+	// Example method available for all provider's clients
+	protected function getProduct(): Product
+	{
+		// specific code shared by all provider's clients
+	}
 }
 ```
 
