@@ -126,27 +126,6 @@ Make command included to speed up and simplify the creation of client provider c
 php bin/console make:provider:client stripe
 ```
 
-### Provider Registry
-
-```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
-
-public function __construct(
-    private ProviderRegistryInterface $providerRegistry
-){}
-```
-
-Alternatively you can use named injection to autowire the ProviderRegistry with a definite provider type :
-
-
-```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
-
-public function __construct(
-    private ProviderRegistryInterface $paymentProviderRegistry
-){}
-```
-
 ### Standalone Client
 
 A client can be standalone and therefore not depend on a specific provider. 
@@ -175,6 +154,27 @@ use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
 
 public function __construct(
     private ProviderInterface $discordProvider
+){}
+```
+
+### Provider Registry
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
+
+public function __construct(
+    private ProviderRegistryInterface $providerRegistry
+){}
+```
+
+Alternatively you can use named injection to autowire the ProviderRegistry with a definite provider type :
+
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
+
+public function __construct(
+    private ProviderRegistryInterface $paymentProviderRegistry
 ){}
 ```
 
