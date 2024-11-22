@@ -64,7 +64,7 @@ abstract class PaymentProvider implements ProviderInterface
 	// Example method available for all provider's clients
 	protected function getProduct(): Product
 	{
-		// specific code shared by all provider's clients
+	  // specific code shared by all provider's clients
 	}
 }
 ```
@@ -96,7 +96,7 @@ class Stripe extends PaymentProvider
 {
 	public function makePayment(): bool
 	{
-		// specific code related to Stripe
+	  // specific code related to Stripe
 	}
 }
 ```
@@ -117,7 +117,7 @@ class Adyen extends PaymentProvider
 {
 	public function makePayment(): bool
 	{
-		// specific code related to Adyen
+	  // specific code related to Adyen
 	}
 }
 ```
