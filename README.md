@@ -149,6 +149,9 @@ public function __construct(
 
 ### Standalone Client
 
+A client can be standalone and therefore not depend on a specific provider. 
+This allows to keep the autowiring logic and benefit from the ProviderRegistry framework without depending on a Provider class in the situation where the client will not have an interchangeable competitor.
+
 ```php
 // src/Provider/Client/Discord.php
 
@@ -164,6 +167,8 @@ class Discord implements ProviderInterface
 
 }
 ```
+
+and inject as :
 
 ```php
 use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
