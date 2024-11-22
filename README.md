@@ -38,7 +38,9 @@ you should configure your classes using a configuration file ([more information 
 Usage
 -----
 
-lorem ipsum.
+This bundle adds to Symfony the management of two classes Provider and ClientProvider.  
+
+### Provider Class
 
 ```php
 // src/Provider/PaymentProvider.php
@@ -61,10 +63,13 @@ abstract class PaymentProvider implements ProviderInterface
 }
 ```
 
+This bundle includes a Make command to speed up and simplify the creation of provider classes :
+
 ```bash
 php bin/console make:provider payment
 ```
 
+### Client Provider Class
 
 ```php
 // src/Provider/Client/Stripe.php
