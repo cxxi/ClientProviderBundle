@@ -162,10 +162,10 @@ public function __construct(
 ```php
 
 $stripeClient = $providerRegistry->get('stripe');
-$adyenClient = $providerRegistry->get('payment', 'stripe');
 $stripeClient = $paymentProviderRegistry->get('stripe');
 
 $defaultClient = $providerRegistry->use('payment')->getDefault();
+$defaultClient = $providerRegistry->getDefault('payment');
 $defaultClient = $paymentProviderRegistry->getDefault();
 
 $providerRegistry->hasProviderType('payment'); // true
