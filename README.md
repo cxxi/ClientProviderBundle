@@ -38,7 +38,7 @@ you should configure your classes using a configuration file ([more information 
 Usage
 -----
 
-This bundle adds to Symfony the management of two classes [**Provider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-class) and [**ClientProvider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-client-class) and provides a [**ProviderRegistry**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-registry) that gives more possibilities to exploit clients.
+This bundle adds to Symfony the management of two classes [**Provider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-class) and [**ClientProvider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#client-provider-class) and provides a [**ProviderRegistry**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-registry) that gives more possibilities to exploit clients.
 
 ### Provider Class
 
@@ -64,7 +64,7 @@ abstract class PaymentProvider implements ProviderInterface
 	// Example method available for all provider's clients
 	protected function getProduct(): Product
 	{
-	  // specific code shared by all provider's clients
+	  // Specific code shared by all provider's clients
 	}
 }
 ```
@@ -96,7 +96,7 @@ class Stripe extends PaymentProvider
 {
 	public function makePayment(): bool
 	{
-	  // specific code related to Stripe
+	  // Specific code related to Stripe
 	}
 }
 ```
@@ -117,7 +117,7 @@ class Adyen extends PaymentProvider
 {
 	public function makePayment(): bool
 	{
-	  // specific code related to Adyen
+	  // Specific code related to Adyen
 	}
 }
 ```
@@ -130,7 +130,7 @@ php bin/console make:provider:client stripe
 
 ### Provider Registry
 
-lorem ipsum
+lorem ipsum.
 
 ### TODO
 
