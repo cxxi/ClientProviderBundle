@@ -218,8 +218,13 @@ use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
 public function __construct(
     private ProviderRegistryInterface $providerRegistry
 ){}
+```
 
-// Alternatively you can use named injection to autowire the ProviderRegistry with a definite provider type :
+Alternatively you can use named injection to autowire the ProviderRegistry with a definite provider type :
+
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
 
 public function __construct(
     private ProviderRegistryInterface $paymentProviderRegistry
