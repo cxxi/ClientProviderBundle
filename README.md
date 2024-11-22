@@ -162,26 +162,33 @@ public function __construct(
 ```php
 
 $stripeClient = $providerRegistry->get('stripe');
-
-$adyenClient = $providerRegistry->use('payment')->get('adyen');
+$adyenClient = $providerRegistry->get('payment', 'stripe');
+$stripeClient = $paymentProviderRegistry->get('stripe');
 
 $defaultClient = $providerRegistry->use('payment')->getDefault();
+$defaultClient = $paymentProviderRegistry->getDefault();
 
 $providerRegistry->hasProviderType('payment'); // true
 
 $providerRegistry->use('payment')->getCurrentType(); // 'payment'
+$paymentProviderRegistry->getCurrentType(); // 'payment'
 
-$providerRegistry->use('payment.stripe');
+// ----
 
-$providerRegistry->use('payment.default');
+$providerRegistry->use('payment', 'stripe');
+$paymentProviderRegistry->use('stripe');
 
-$providerRegistry->call('makePayment', 'stripe');
+$providerRegistry->use('payment', 'stripe')->call('makePayment');
+$paymentProviderRegistry->use('stripe')->call('makePayment');
 
-$providerRegistry->callWithFallback('makePayment', PaymentException::class);
+$providerRegistry->use('payment')->callWithFallback('makePayment', PaymentException::class);
+$paymentProviderRegistry->use('stripe')->callWithFallback('makePayment', PaymentException::class);
 
-$providerRegistry->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
+$providerRegistry->use('payment')->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
+$paymentProviderRegistry->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
 
-$providerRegistry->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
+$providerRegistry->use('payment')->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
+$paymentProviderRegistry->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
 
 ```
 
