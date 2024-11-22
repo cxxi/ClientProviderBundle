@@ -159,6 +159,33 @@ public function __construct(
 ){}
 ```
 
+```php
+
+$stripeClient = $providerRegistry->get('stripe');
+
+$adyenClient = $providerRegistry->use('payment')->get('adyen');
+
+$defaultClient = $providerRegistry->use('payment')->getDefault();
+
+$providerRegistry->hasProviderType('payment'); // true
+
+$providerRegistry->use('payment');
+$providerRegistry->getCurrentType(); // 'payment'
+
+$providerRegistry->use('payment.stripe');
+
+$providerRegistry->use('payment.default');
+
+$providerRegistry->call('makePayment', 'stripe');
+
+$providerRegistry->callWithFallback('makePayment', PaymentException::class);
+
+$providerRegistry->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
+
+$providerRegistry->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
+
+```
+
 Maintainers
 -----------
 

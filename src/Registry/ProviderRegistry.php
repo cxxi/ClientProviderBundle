@@ -62,7 +62,7 @@ final class ProviderRegistry implements ProviderRegistryInterface
 		return $this->currentType;
 	}
 
-	public function call(string $method): mixed
+	public function call(string $method, string $client): mixed
 	{
 
 	}
