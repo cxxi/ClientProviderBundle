@@ -38,7 +38,7 @@ you should configure your classes using a configuration file ([more information 
 Usage
 -----
 
-This bundle adds to Symfony the management of two classes Provider and ClientProvider.  
+This bundle adds to Symfony the management of two classes **Provider** and **ClientProvider**.  
 
 ### Provider Class
 
@@ -63,7 +63,7 @@ abstract class PaymentProvider implements ProviderInterface
 }
 ```
 
-This bundle includes a Make command to speed up and simplify the creation of provider classes :
+Make command included to speed up and simplify the creation of provider class :
 
 ```bash
 php bin/console make:provider payment
@@ -113,9 +113,13 @@ class Adyen extends PaymentProvider
 }
 ```
 
+Make command included to speed up and simplify the creation of client provider class :
+
 ```bash
 php bin/console make:provider:client stripe
 ```
+
+### TODO
 
 ```php
 #[AsProvider(name: 'payment', default: 'stripe')]
