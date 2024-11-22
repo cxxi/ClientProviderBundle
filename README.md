@@ -130,7 +130,24 @@ php bin/console make:provider:client stripe
 
 ### Provider Registry
 
-lorem ipsum.
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
+
+public function __construct(
+    private ProviderRegistryInterface $providerRegistry
+){}
+```
+
+Alternatively you can use named injection to autowire the ProviderRegistry with a certain provider type mounted :
+
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
+
+public function __construct(
+    private ProviderRegistryInterface $paymentProviderRegistry
+){}
+```
 
 ### TODO
 
@@ -168,21 +185,6 @@ public function __construct(
 ){}
 ```
 
-```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
-
-public function __construct(
-    private ProviderRegistryInterface $providerRegistry
-){}
-```
-
-```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
-
-public function __construct(
-    private ProviderRegistryInterface $paymentProviderRegistry
-){}
-```
 
 ```php
 
