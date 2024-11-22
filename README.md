@@ -181,14 +181,27 @@ $paymentProviderRegistry->use('stripe');
 $providerRegistry->use('payment', 'stripe')->call('makePayment');
 $paymentProviderRegistry->use('stripe')->call('makePayment');
 
-$providerRegistry->use('payment')->callWithFallback('makePayment', PaymentException::class);
-$paymentProviderRegistry->use('stripe')->callWithFallback('makePayment', PaymentException::class);
+$providerRegistry
+	->use('payment')
+	->callWithFallback('makePayment', PaymentException::class);
 
-$providerRegistry->use('payment')->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
-$paymentProviderRegistry->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
+$paymentProviderRegistry
+	->use('stripe')
+	->callWithFallback('makePayment', PaymentException::class);
 
-$providerRegistry->use('payment')->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
-$paymentProviderRegistry->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
+$providerRegistry
+	->use('payment')
+	->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
+
+$paymentProviderRegistry
+	->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
+
+$providerRegistry
+	->use('payment')
+	->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
+
+$paymentProviderRegistry
+	->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
 
 ```
 
