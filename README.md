@@ -38,7 +38,7 @@ you should configure your classes using a configuration file ([more information 
 Usage
 -----
 
-This bundle adds to Symfony the management of two classes **Provider** and **ClientProvider** and provides a **registry class** that gives more possibilities to exploit clients.
+This bundle adds to Symfony the management of two classes [**Provider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-class) and [**ClientProvider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-client-class) and provides a [**ProviderRegistry**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-registry) that gives more possibilities to exploit clients.
 
 ### Provider Class
 
@@ -127,6 +127,10 @@ Make command included to speed up and simplify the creation of client provider c
 ```bash
 php bin/console make:provider:client stripe
 ```
+
+### Provider Registry
+
+lorem ipsum
 
 ### TODO
 
