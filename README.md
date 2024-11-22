@@ -149,6 +149,14 @@ public function __construct(
 ){}
 ```
 
+### Learn more
+
+Read more about the usage of the clientProviderBundle.
+
+- [Attributes Reference](https://www.todo.com)
+- [ProviderRegistry Reference](https://www.todo.com)
+- [Use without attribute](https://www.todo.com)
+
 ### TODO
 
 ```php
