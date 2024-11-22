@@ -149,6 +149,33 @@ public function __construct(
 ){}
 ```
 
+### Standalone Client
+
+```php
+// src/Provider/Client/Discord.php
+
+<?php
+
+namespace App\Provider\Client;
+
+use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
+
+
+#[AsClientProvider('discord', standalone: true)]
+class Discord implements ProviderInterface
+{
+	// Code
+}
+```
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
+
+public function __construct(
+    private ProviderInterface $discordProvider
+){}
+```
+
 ### Learn more
 
 Read more about the usage of the clientProviderBundle.
