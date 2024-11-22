@@ -103,7 +103,7 @@ class Adyen extends PaymentProvider
 ```yaml
 # config/services.yaml
 parameters:
-	app.default.payment_provider: stripe
+  app.default.payment_provider: stripe
 ```
 
 ```php
