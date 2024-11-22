@@ -169,8 +169,7 @@ $defaultClient = $providerRegistry->use('payment')->getDefault();
 
 $providerRegistry->hasProviderType('payment'); // true
 
-$providerRegistry->use('payment');
-$providerRegistry->getCurrentType(); // 'payment'
+$providerRegistry->use('payment')->getCurrentType(); // 'payment'
 
 $providerRegistry->use('payment.stripe');
 
