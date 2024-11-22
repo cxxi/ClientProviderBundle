@@ -3,7 +3,7 @@
 namespace Cxxi\ClientProviderBundle\Tests\Utils;
 
 use Cxxi\ClientProviderBundle\Exception\ProviderAutowireException;
-use Cxxi\ClientProviderBundle\Utils\AutowiringChecker;
+use Cxxi\ClientProviderBundle\Util\AutowiringChecker;
 use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
 use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

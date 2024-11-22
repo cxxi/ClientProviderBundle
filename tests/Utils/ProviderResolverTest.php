@@ -2,7 +2,7 @@
 
 namespace Cxxi\ClientProviderBundle\Tests\Utils;
 
-use Cxxi\ClientProviderBundle\Utils\ProviderResolver;
+use Cxxi\ClientProviderBundle\Util\ProviderResolver;
 use Cxxi\ClientProviderBundle\Tests\TestConstants;
 use Cxxi\ClientProviderBundle\Tests\Mock\SampleValidAttribute;
 use Cxxi\ClientProviderBundle\Tests\Mock\SampleInvalidAttribute;

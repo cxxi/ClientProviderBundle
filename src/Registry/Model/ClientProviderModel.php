@@ -22,8 +22,15 @@ class ClientProviderModel
 			$reflector = $reflector->getParentClass();
 		}
 
-		$this->name = AttributeReader::get($reflector, AsClientProvider::class, 'name');
-		$this->providerType = AttributeReader::get($reflector->getParentClass(), AsProvider::class, 'name');
+		$attribute = AttributeReader::get($reflector, AsClientProvider::class);
+
+		$this->name = $attribute->getName();
+
+		$this->providerType = !$attribute->isStandalone()
+			? AttributeReader::get($reflector->getParentClass(), AsProvider::class, 'name')
+			: AsClientProvider::STANDALONE
+		;
+		
 		$this->instance = $client;
 	}
 

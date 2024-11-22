@@ -8,6 +8,7 @@ use Cxxi\ClientProviderBundle\Contracts\ProviderAttributeInterface;
 class AsClientProvider extends AbstractProviderAttribute implements ProviderAttributeInterface
 {
     public const TAG = 'client';
+    public const STANDALONE = '__STANDALONE__';
 
     public function __construct(
         private readonly string $name,

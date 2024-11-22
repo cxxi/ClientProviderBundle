@@ -2,7 +2,7 @@
 
 namespace Cxxi\ClientProviderBundle\Tests\Utils;
 
-use Cxxi\ClientProviderBundle\Utils\AttributeReader;
+use Cxxi\ClientProviderBundle\Util\AttributeReader;
 use Cxxi\ClientProviderBundle\Exception\ProviderAttributeException;
 use Cxxi\ClientProviderBundle\Contracts\ProviderAttributeInterface;
 use Cxxi\ClientProviderBundle\Tests\TestConstants;

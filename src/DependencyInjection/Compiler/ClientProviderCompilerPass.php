@@ -25,15 +25,17 @@ class ClientProviderCompilerPass implements CompilerPassInterface
             }
 
             $asClientProvider = AttributeReader::get($reflector, AsClientProvider::class);
-
+            
             $container->getDefinition($className)
                 ->addTag(AsClientProvider::TAG, [ 'alias' => $asClientProvider->getTagAlias() ])
                 ->setPublic(true)
                 ->setLazy(true)
             ;
 
-            $providerType = AttributeReader::get($reflector->getParentClass(), AsProvider::class, 'name');
-            $alias = sprintf('%s $%s%sProvider', ProviderInterface::class, $asClientProvider->getName(), ucfirst($providerType));
+            if (!$asClientProvider->isStandalone()) {
+                $providerType = AttributeReader::get($reflector->getParentClass(), AsProvider::class, 'name');
+                $alias = sprintf('%s $%s%sProvider', ProviderInterface::class, $asClientProvider->getName(), ucfirst($providerType));
+            }
 
             // sprintf('client_provider.client.%s', $asClientProvider->getName())
 

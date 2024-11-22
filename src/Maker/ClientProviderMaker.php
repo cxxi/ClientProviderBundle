@@ -3,6 +3,7 @@
 namespace Cxxi\ClientProviderBundle\Maker;
 
 use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
+use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
 use Symfony\Bundle\MakerBundle\FileManager;
@@ -35,45 +36,76 @@ final class ClientProviderMaker extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
-            ->addArgument('name', InputArgument::REQUIRED, 'The name of the client provider class')
+            ->addArgument('name', InputArgument::REQUIRED, 'The name of the client provider')
             ->setDescription(self::getCommandDescription())
-            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeClientProvider.txt'))
+            ->setHelp(file_get_contents(sprintf('%s/../Resources/help/MakeClientProvider.txt', __DIR__)))
         ;
     }
 
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator): void
     {
-        $name = $input->getArgument('name');
-        
-        $classNameDetails = $generator->createClassNameDetails(
-            $name, 
-            'Provider\\Client\\',
-            ''
-        );
+        $clientName = $input->getArgument('name');
 
-        $useStatements = new UseStatementGenerator([
-            AsClientProvider::class
-        ]);
+        $providerName = $io->ask('The name of provider', AsClientProvider::STANDALONE, function($value) {
+            return $value ?? ''; 
+        });
+        
+        $classNameDetails = $generator->createClassNameDetails($clientName, 'Provider\\Client\\');
 
         $generator->generateClass(
             $classNameDetails->getFullName(),
-            __DIR__ . '/../Resources/skeleton/ClientProvider.tpl.php',
+            sprintf('%s/../Resources/skeleton/ClientProvider.tpl.php', __DIR__),
             [
-                'use_statements' => $useStatements,
                 'class_name' => $classNameDetails->getShortName(),
-                'client_provider_name' => strtolower($name),
-                'provider_class_name' => 'Lol'
+                'use_statements' => $this->generateUseStatements($providerName),
+                'attribute' => $this->generateAttribute($providerName, $clientName),
+                'ancestor' => $this->generateAncestor($providerName)
             ]
         );
 
         $generator->writeChanges();
 
         $this->writeSuccessMessage($io);
+
         $io->text([
-            'Next: open your new command class and customize it!',
+            'Next: open your new client provider class and customize it!',
             'Find the documentation at <fg=yellow>https://symfony.com/doc/current/console.html</>',
         ]);
     }
 
     public function configureDependencies(DependencyBuilder $dependencies): void {}
+
+    private function generateUseStatements(string $providerName): string
+    {
+        $useStatements = [ AsClientProvider::class ];
+
+        if ($providerName === AsClientProvider::STANDALONE) {
+            $useStatements[] = ProviderInterface::class;
+        }
+
+        return new UseStatementGenerator($useStatements);
+    }
+
+    private function generateAttribute(string $providerName, string $clientName): string
+    {
+        $parameters = [ sprintf("name: '%s'", $clientName) ];
+
+        if ($providerName === AsClientProvider::STANDALONE) {
+            $parameters[] = sprintf("standalone: true");
+        }
+
+        $attributeClass = basename(str_replace('\\', '/', AsClientProvider::class));
+
+        return sprintf("#[%s(%s)]", $attributeClass, implode(', ', $parameters));
+    }
+
+    private function generateAncestor(string $providerName): string
+    {
+        $interfaceClass = basename(str_replace('\\', '/', ProviderInterface::class));
+
+        return $providerName === AsClientProvider::STANDALONE
+            ? sprintf('implements %s', $interfaceClass)
+            : sprintf('extends %s', $providerClass)
+        ;
+    }
 }

@@ -10,7 +10,6 @@ use Cxxi\ClientProviderBundle\Exception\ProviderTypeException;
 use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
 use Cxxi\ClientProviderBundle\Enum\AggregationLogicEnum;
 use Symfony\Component\VarExporter\LazyObjectInterface;
-use Symfony\Component\VarExporter\VarExporter;
 
 final class ProviderRegistry implements ProviderRegistryInterface
 {
@@ -73,12 +72,12 @@ final class ProviderRegistry implements ProviderRegistryInterface
 
 	}
 
-	public function callUntilSuccess(string $method, array $providers, ?string $exceptionClassExpected = null): mixed
+	public function callUntilSuccess(string $method, array $clients, ?string $exceptionClassExpected = null): mixed
 	{
 
 	}
 
-	public function callAndAggregate(string $method, array $providers, AggregationLogicEnum $aggregationLogic = AggregationLogicEnum::CONCAT): mixed
+	public function callAndAggregate(string $method, array $clients, AggregationLogicEnum $aggregationLogic = AggregationLogicEnum::CONCAT): mixed
 	{
 
 	}
@@ -121,58 +120,18 @@ final class ProviderRegistry implements ProviderRegistryInterface
 			}
 
 			$providerClass = $reflector->getParentClass();
-			
-			$providerTypeModel = new ProviderTypeModel($providerClass);
-			$clientModels[] = new ClientProviderModel($client);
 
-			if (!isset($providerTypeModels[$providerTypeModel->getName()])) {
-				$providerTypeModels[$providerTypeModel->getName()] = $providerTypeModel;
+			if ($providerClass !== false) {
+				$providerTypeModel = new ProviderTypeModel($providerClass);
+				if (!isset($providerTypeModels[$providerTypeModel->getName()])) {
+					$providerTypeModels[$providerTypeModel->getName()] = $providerTypeModel;
+				}
 			}
+
+			$clientModels[] = new ClientProviderModel($client);			
 		}
 
 		$this->providerTypes = $providerTypeModels;
 		$this->clients = $clientModels;
 	}
-
-	// public function getClients(?string $providerType = null, bool $toArray = false): Iterable
-	// {
-	// 	if (!is_null($providerType) && !$this->hasProviderType($providerType)) {
-	// 		throw new InvalidArgumentException(sprintf('Provider type "%s" does not exists', $providerType));
-	// 	}
-
-	// 	$clients = $this->clients;
-
-	// 	if (!is_null($providerType)) {
-	// 		$clients = $clients->filter(fn($client) => $client->isProvider($providerType));
-	// 	}
-
-	// 	$clients = $clients->map(fn($client) => $client->getInstance());
-	// 	return $toArray ? $clients->toArray() : $clients;
-	// }
-
-	// public function getClient(string $clientName): ProviderInterface
-	// {
-	// 	if (!$this->hasClient($clientName)) {
-	// 		throw new InvalidArgumentException(sprintf('Client provider "%s" does not exists', $clientName));
-	// 	}
-
-	// 	return $this->clients->findFirst(function($i, $client) use ($clientName) {
-	// 		return $client->getName() === $clientName;
-	// 	})->getInstance();
-	// }
-
-	// public function hasClient(string $clientName): bool
-	// {
-	// 	return $this->clients->exists(fn($i, $client) => $client->getName() === $clientName);
-	// }
-
-	// public function getProviderTypes(): array
-	// {
-	// 	return $this->providerTypes;
-	// }
-
-	// public function hasProviderType(string $providerType): bool
-	// {
-	// 	return in_array($providerType, $this->providerTypes);
-	// }
 }

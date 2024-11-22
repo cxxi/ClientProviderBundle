@@ -3,9 +3,10 @@
 namespace Cxxi\ClientProviderBundle\Tests;
 
 use Cxxi\ClientProviderBundle\ClientProviderBundle;
-use Cxxi\ClientProviderBundle\DependencyInjection\ClientProviderCompilerPass;
-use Cxxi\ClientProviderBundle\DependencyInjection\ProviderCompilerPass;
-use Cxxi\ClientProviderBundle\DependencyInjection\RegistryCompilerPass;
+use Cxxi\ClientProviderBundle\DependencyInjection\Compiler\ClientProviderCompilerPass;
+use Cxxi\ClientProviderBundle\DependencyInjection\Compiler\ProviderCompilerPass;
+use Cxxi\ClientProviderBundle\DependencyInjection\Compiler\RegistryCompilerPass;
+use Cxxi\ClientProviderBundle\DependencyInjection\Compiler\MakerCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +19,7 @@ class ClientProviderBundleTest extends TestCase
 
         $calls = [];
 
-        $container->expects($this->exactly(3))
+        $container->expects($this->exactly(4))
             ->method('addCompilerPass')
             ->with($this->isInstanceOf(CompilerPassInterface::class))
             ->willReturnCallback(function($compilerPass) use (&$calls, $container) {
@@ -30,10 +31,11 @@ class ClientProviderBundleTest extends TestCase
         $bundle = new ClientProviderBundle();
         $bundle->build($container);
 
-        $this->assertCount(3, $calls);
+        $this->assertCount(4, $calls);
 
-        $this->assertInstanceOf(ClientProviderCompilerPass::class, $calls[0]);
-        $this->assertInstanceOf(ProviderCompilerPass::class, $calls[1]);
-        $this->assertInstanceOf(RegistryCompilerPass::class, $calls[2]);
+        $this->assertInstanceOf(MakerCompilerPass::class, $calls[0]);
+        $this->assertInstanceOf(ClientProviderCompilerPass::class, $calls[1]);
+        $this->assertInstanceOf(ProviderCompilerPass::class, $calls[2]);
+        $this->assertInstanceOf(RegistryCompilerPass::class, $calls[3]);
     }
 }

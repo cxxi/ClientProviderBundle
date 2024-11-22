@@ -4,8 +4,8 @@ namespace <?= $namespace; ?>;
 
 <?= $use_statements; ?>
 
-#[AsClientProvider(name: '<?= $client_provider_name; ?>')]
-class <?= $class_name; ?> extends <?= $provider_class_name; ?>
+<?= $attribute."\n"; ?>
+class <?= $class_name; ?> <?= $ancestor; ?>
 {
     public function methodThatMustBeImplementedByTheClient(): void
     {
