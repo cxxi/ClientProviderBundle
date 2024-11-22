@@ -66,14 +66,14 @@ abstract class PaymentProvider implements ProviderInterface
 	// Example method available for all provider's clients
 	protected function getProduct(): Product
 	{
-	  // Specific code shared by all provider's clients
+	    // Specific code shared by all provider's clients
 	}
 }
 ```
 
 #### Make Command
 
-Make command included to speed up and simplify the creation of provider class :
+Included to speed up and simplify the creation of provider class :
 
 ```bash
 php bin/console make:provider payment
@@ -101,7 +101,7 @@ class Stripe extends PaymentProvider
 {
 	public function makePayment(): bool
 	{
-	  // Specific code related to Stripe
+	    // Specific code related to Stripe
 	}
 }
 ```
@@ -121,14 +121,14 @@ class Adyen extends PaymentProvider
 {
 	public function makePayment(): bool
 	{
-	  // Specific code related to Adyen
+	    // Specific code related to Adyen
 	}
 }
 ```
 
 #### Make Command
 
-Make command included to speed up and simplify the creation of client provider class :
+Included to speed up and simplify the creation of client provider class :
 
 ```bash
 php bin/console make:provider:client stripe
@@ -157,7 +157,7 @@ This will result in mounting the default client when injecting the provider it d
 use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
 
 public function __construct(
-	private ProviderInterface $paymentProvider
+    private ProviderInterface $paymentProvider
 ){}
 
 // same as :
