@@ -42,6 +42,9 @@ This bundle adds to Symfony the management of two classes **Provider** and **Cli
 
 ### Provider Class
 
+Providers are abstract classes that define the logic to be implemented by clients and the logic shared by those same clients.
+They group together interchangeable clients that share a defined common role. In this example, we create a payment provider.
+
 ```php
 // src/Provider/PaymentProvider.php
 
@@ -71,6 +74,9 @@ php bin/console make:provider payment
 
 ### Client Provider Class
 
+Clients are specific implementations that share a common role within the application, they extend from the provider class representing the logic that is implemented. 
+You can have multiple clients that inherit from the same provider and each client should be designed to be interchangeable.
+
 ```php
 // src/Provider/Client/Stripe.php
 
@@ -87,7 +93,7 @@ class Stripe extends PaymentProvider
 {
 	public function makePayment(): bool
 	{
-		// code
+		// specific code related to Stripe
 	}
 }
 ```
@@ -108,7 +114,7 @@ class Adyen extends PaymentProvider
 {
 	public function makePayment(): bool
 	{
-		// code
+		// specific code related to Adyen
 	}
 }
 ```
