@@ -37,6 +37,66 @@ Usage
 
 lorem ipsum.
 
+```php
+// src/Provider/PaymentProvider.php
+
+<?php 
+
+namespace App\Provider;
+
+use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
+use Cxxi\ClientProviderBundle\Attribute\AsProvider;
+
+#[AsProvider('payment')]
+abstract class PaymentProvider implements ProviderInterface
+{
+	abstract public function makePayment(): bool;
+}
+```
+
+```php
+// src/Provider/Client/Stripe.php
+
+<?php
+
+namespace App\Provider\Client;
+
+use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
+use App\Provider\PaymentProvider;
+
+
+#[AsClientProvider(name: 'stripe')]
+class Stripe extends PaymentProvider
+{
+	public function makePayment(): bool
+	{
+		// code
+	}
+}
+```
+
+```php
+// src/Provider/Client/Adyen.php
+
+<?php
+
+namespace App\Provider\Client;
+
+use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
+use App\Provider\PaymentProvider;
+
+
+#[AsClientProvider(name: 'adyen')]
+class Adyen extends PaymentProvider
+{
+	public function makePayment(): bool
+	{
+		// code
+	}
+}
+```
+
+
 Maintainers
 -----------
 
