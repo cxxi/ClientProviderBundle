@@ -45,6 +45,8 @@ This bundle adds to Symfony the management of two classes [**Provider**](https:/
 Providers are abstract classes that define the logic to be implemented by clients and the logic shared by those same clients.
 They group together interchangeable clients that share a defined common role. In this example, we create a payment provider.
 
+#### Definition
+
 ```php
 // src/Provider/PaymentProvider.php
 
@@ -69,6 +71,8 @@ abstract class PaymentProvider implements ProviderInterface
 }
 ```
 
+#### Make Command
+
 Make command included to speed up and simplify the creation of provider class :
 
 ```bash
@@ -79,6 +83,8 @@ php bin/console make:provider payment
 
 Clients are specific implementations that share a common role within the application, they extend from the provider class representing the logic that is implemented. 
 You can have multiple clients that inherit from the same provider and each client should be designed to be interchangeable.
+
+#### Definition
 
 ```php
 // src/Provider/Client/Stripe.php
@@ -120,10 +126,57 @@ class Adyen extends PaymentProvider
 }
 ```
 
+#### Make Command
+
 Make command included to speed up and simplify the creation of client provider class :
 
 ```bash
 php bin/console make:provider:client stripe
+```
+
+#### Autowiring
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
+
+public function __construct(
+    private ProviderInterface $stripePaymentProvider
+){}
+```
+
+#### Default Client
+
+Providers support the definition of a default client. 
+This will result in mounting the default client when injecting the provider it depends on
+
+```php
+#[AsProvider(name: 'payment', default: 'stripe')]
+```
+
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
+
+public function __construct(
+	private ProviderInterface $paymentProvider
+){}
+
+// same as :
+
+public function __construct(
+    private ProviderInterface $stripePaymentProvider
+){}
+```
+
+The default parameter supports mapping from services.yaml
+
+```yaml
+# config/services.yaml
+parameters:
+  app.default.payment_provider: stripe
+```
+
+```php
+#[AsProvider(name: 'payment', default: '%app.default.payment_provider%')]
 ```
 
 ### Standalone Client
@@ -180,12 +233,6 @@ public function __construct(
 ){}
 ```
 
-#### Default Client
-
-```php
-#[AsProvider(name: 'payment', default: 'stripe')]
-```
-
 ### Learn more
 
 Read more about the usage of the clientProviderBundle.
@@ -200,15 +247,15 @@ Read more about the usage of the clientProviderBundle.
 #[AsProvider(name: 'payment', default: 'stripe')]
 ```
 
-```yaml
-# config/services.yaml
-parameters:
-  app.default.payment_provider: stripe
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
+
+public function __construct(
+	private ProviderInterface $paymentProvider
+){}
+
 ```
 
-```php
-#[AsProvider(name: 'payment', default: '%app.default.payment_provider%')]
-```
 
 ```php
 #[AsClientProvider(name: 'adyen', standalone: true)]
