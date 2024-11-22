@@ -198,11 +198,9 @@ class Discord implements ProviderInterface
 {
 
 }
-```
 
-and inject as :
+// And inject as :
 
-```php
 use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
 
 public function __construct(
@@ -220,13 +218,8 @@ use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
 public function __construct(
     private ProviderRegistryInterface $providerRegistry
 ){}
-```
 
-Alternatively you can use named injection to autowire the ProviderRegistry with a definite provider type :
-
-
-```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
+// Alternatively you can use named injection to autowire the ProviderRegistry with a definite provider type :
 
 public function __construct(
     private ProviderRegistryInterface $paymentProviderRegistry
