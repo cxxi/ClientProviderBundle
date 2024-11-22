@@ -38,7 +38,7 @@ you should configure your classes using a configuration file ([more information 
 Usage
 -----
 
-This bundle adds to Symfony the management of two classes **Provider** and **ClientProvider**.  
+This bundle adds to Symfony the management of two classes **Provider** and **ClientProvider** and provides a **registry class** that gives more possibilities to exploit clients.
 
 ### Provider Class
 
