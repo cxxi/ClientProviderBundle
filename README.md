@@ -159,6 +159,8 @@ public function __construct(
 
 ### Provider Registry
 
+#### Autowiring
+
 ```php
 use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
 
@@ -176,6 +178,12 @@ use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
 public function __construct(
     private ProviderRegistryInterface $paymentProviderRegistry
 ){}
+```
+
+#### Default Client
+
+```php
+#[AsProvider(name: 'payment', default: 'stripe')]
 ```
 
 ### Learn more
