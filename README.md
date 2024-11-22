@@ -30,7 +30,10 @@ return [
 Configuration
 -------------
 
-lorem ipsum.
+**The bundle does not require any specific configuration to be used.**  
+
+However if you are using an older version of PHP that does not support [attributes](https://www.php.net/manual/en/language.attributes.overview.php), 
+you should configure your classes using a configuration file ([more information here](https://www.todo.com))
 
 Usage
 -----
