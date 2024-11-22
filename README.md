@@ -50,9 +50,18 @@ use Cxxi\ClientProviderBundle\Attribute\AsProvider;
 #[AsProvider('payment')]
 abstract class PaymentProvider implements ProviderInterface
 {
+	// Example method must be implemented by all clients
 	abstract public function makePayment(): bool;
+
+	// Example method available for all clients
+	protected function getProduct(): Product;
 }
 ```
+
+```bash
+php bin/console make:provider payment
+```
+
 
 ```php
 // src/Provider/Client/Stripe.php
@@ -94,6 +103,10 @@ class Adyen extends PaymentProvider
 		// code
 	}
 }
+```
+
+```bash
+php bin/console make:provider:client stripe
 ```
 
 ```php
