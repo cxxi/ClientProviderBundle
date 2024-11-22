@@ -90,7 +90,6 @@ namespace App\Provider\Client;
 use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
 use App\Provider\PaymentProvider;
 
-
 #[AsClientProvider('stripe')]
 class Stripe extends PaymentProvider
 {
@@ -110,7 +109,6 @@ namespace App\Provider\Client;
 
 use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
 use App\Provider\PaymentProvider;
-
 
 #[AsClientProvider('adyen')]
 class Adyen extends PaymentProvider
@@ -160,11 +158,10 @@ namespace App\Provider\Client;
 
 use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
 
-
 #[AsClientProvider('discord', standalone: true)]
 class Discord implements ProviderInterface
 {
-	// Code
+
 }
 ```
 
