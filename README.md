@@ -60,14 +60,14 @@ use Cxxi\ClientProviderBundle\Attribute\AsProvider;
 #[AsProvider('payment')]
 abstract class PaymentProvider implements ProviderInterface
 {
-	// Example method must be implemented by all provider's clients
-	abstract public function makePayment(): bool;
+    // Example method must be implemented by all provider's clients
+    abstract public function makePayment(): bool;
 
-	// Example method available for all provider's clients
-	protected function getProduct(): Product
-	{
-	    // Specific code shared by all provider's clients
-	}
+    // Example method available for all provider's clients
+    protected function getProduct(): Product
+    {
+        // Specific code shared by all provider's clients
+    }
 }
 ```
 
@@ -99,10 +99,10 @@ use App\Provider\PaymentProvider;
 #[AsClientProvider('stripe')]
 class Stripe extends PaymentProvider
 {
-	public function makePayment(): bool
-	{
-	    // Specific code related to Stripe
-	}
+    public function makePayment(): bool
+    {
+        // Specific code related to Stripe
+    }
 }
 ```
 
@@ -119,10 +119,10 @@ use App\Provider\PaymentProvider;
 #[AsClientProvider('adyen')]
 class Adyen extends PaymentProvider
 {
-	public function makePayment(): bool
-	{
-	    // Specific code related to Adyen
-	}
+    public function makePayment(): bool
+    {
+        // Specific code related to Adyen
+    }
 }
 ```
 
@@ -240,8 +240,8 @@ public function __construct(
 
 Read more about the usage of the clientProviderBundle.
 
-- [Attributes Reference](https://www.todo.com)
-- [ProviderRegistry Reference](https://www.todo.com)
+- [Attributes](https://www.todo.com)
+- [ProviderRegistry](https://www.todo.com)
 - [Use without attribute](https://www.todo.com)
 
 ### TODO
@@ -254,7 +254,7 @@ Read more about the usage of the clientProviderBundle.
 use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
 
 public function __construct(
-	private ProviderInterface $paymentProvider
+    private ProviderInterface $paymentProvider
 ){}
 
 ```
@@ -276,7 +276,7 @@ public function __construct(
 use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
 
 public function __construct(
-	private ProviderInterface $paymentProvider
+    private ProviderInterface $paymentProvider
 ){}
 ```
 
@@ -304,26 +304,26 @@ $providerRegistry->use('payment', 'stripe')->call('makePayment');
 $paymentProviderRegistry->use('stripe')->call('makePayment');
 
 $providerRegistry
-	->use('payment')
-	->callWithFallback('makePayment', PaymentException::class);
+    ->use('payment')
+    ->callWithFallback('makePayment', PaymentException::class);
 
 $paymentProviderRegistry
-	->use('stripe')
-	->callWithFallback('makePayment', PaymentException::class);
+    ->use('stripe')
+    ->callWithFallback('makePayment', PaymentException::class);
 
 $providerRegistry
-	->use('payment')
-	->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
+    ->use('payment')
+    ->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
 
 $paymentProviderRegistry
-	->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
+    ->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
 
 $providerRegistry
-	->use('payment')
-	->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
+    ->use('payment')
+    ->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
 
 $paymentProviderRegistry
-	->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
+    ->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
 
 ```
 
