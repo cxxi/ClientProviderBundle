@@ -246,46 +246,41 @@ $paymentProviderRegistry = $this->paymentProviderRegistry;
 
 #### How to use
 
+Get ClientProvider from Registry :
 ```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
-
-class Example
-{
-    public function __construct(
-        private ProviderRegistryInterface $providerRegistry
-    ){}
-
-    public function demo()
-    {
-        // Get ClientProvider from Registry
-        $stripeClient = $this->providerRegistry->use('payment')
-        	->get('stripe')
-
-        // Get default ClientProvider from Registry
-        $defaultClient = $this->providerRegistry->use('payment')
-        	->getDefault();
-
-        // Get return of "makePayment" method from stripe ClientProvider
-        $paymentResponse = $this->providerRegistry->use('payment')
-        	->get('stripe')
-        	->call('makePayment', $args);
-
-        // Get first return of "makePayment" method from multiple ClientProvider
-        // Optionnaly you can pass an specif Exception class as thrid argument
-       	// to force particular Exception for call the next ClientProvider
-        $paymentResponse = $this->providerRegistry->use('payment')
-        	->get('stripe', 'adyen')
-        	->callUntilSuccess('makePayment', $args, PaymentException::class);
-
-        // Get all returns of "makePayment" method from multiple ClientProvider
-        // The thrid argument defined aggregate strategy to use for join responses
-        $paymentResponse = $this->providerRegistry->use('payment')
-        	->get('stripe', 'adyen')
-        	->callAndAggregate('makePayment', $args, AggregationLogicEnum::CONCAT);
-    }
-}
-
+$stripeClient = $this->providerRegistry->use('payment')
+    ->get('stripe');
 ```
+
+Get default ClientProvider from Registry :
+```php
+$defaultClient = $this->providerRegistry->use('payment')
+    ->getDefault();
+```
+
+Get return of "makePayment" method from stripe ClientProvider :
+```php
+$paymentResponse = $this->providerRegistry->use('payment')
+    ->get('stripe')
+    ->call('makePayment', $args);
+```
+
+Get first return of "makePayment" method from multiple ClientProvider :
+```php
+$paymentResponse = $this->providerRegistry->use('payment')
+    ->get('stripe', 'adyen')
+    ->callUntilSuccess('makePayment', $args, PaymentException::class);
+```
+> *Optionnaly you can pass an specif Exception class as thrid argument*  
+> *to force particular Exception for call the next ClientProvider*  
+
+Get all returns of "makePayment" method from multiple ClientProvider :
+```php
+$paymentResponse = $this->providerRegistry->use('payment')
+    ->get('stripe', 'adyen')
+    ->callAndAggregate('makePayment', $args, AggregationLogicEnum::CONCAT);
+```
+> *The thrid argument defined aggregate strategy to use for join responses*  
 
 ### Learn more
 
