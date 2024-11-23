@@ -38,7 +38,7 @@ you should configure your classes using a configuration file ([more information 
 Usage
 -----
 
-This bundle adds to Symfony the management of two classes [**Provider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-class) and [**ClientProvider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#client-provider-class) and provides a [**ProviderRegistry**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-registry) that gives more possibilities to exploit clients.
+This bundle enhances your Symfony application by adding the notion of multiple and/or interchangeable clients provider through two interdependent classes [**Provider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-class) and [**ClientProvider**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#client-provider-class) and a [**ProviderRegistry**](https://github.com/cxxi/ClientProviderBundle?tab=readme-ov-file#provider-registry) that gives more possibilities to exploit clients.
 
 ### Provider Class
 
@@ -82,7 +82,7 @@ php bin/console make:provider payment
 ### Client Provider Class
 
 Clients are specific implementations that share a common role within the application, they extend from the provider class representing the logic that is implemented. 
-You can have multiple clients that inherit from the same provider and each client should be designed to be interchangeable.
+You can have multiple clients that inherit from the same provider and each client should be designed to be interchangeable within the same provider.
 
 #### Definition
 
@@ -136,6 +136,8 @@ php bin/console make:provider:client stripe
 
 #### Autowiring
 
+To use a client provider in the application, just inject your client like this :
+
 ```php
 use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
 
@@ -143,6 +145,8 @@ public function __construct(
     private ProviderInterface $stripePaymentProvider
 ){}
 ```
+
+> *Note use of ProviderInterface*
 
 #### Default Client
 
@@ -290,7 +294,7 @@ $providerRegistry->hasProviderType('payment'); // true
 $providerRegistry->use('payment')->getCurrentType(); // 'payment'
 $paymentProviderRegistry->getCurrentType(); // 'payment'
 
-// ----
+// ---- ->as() ?
 
 $providerRegistry->use('payment', 'stripe');
 $paymentProviderRegistry->use('stripe');
