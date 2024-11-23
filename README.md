@@ -224,6 +224,8 @@ public function __construct(
     private ProviderRegistryInterface $providerRegistry
 ){}
 
+// Get a provider typed registry
+$paymentProviderRegistry = $this->providerRegistry->use('payment');
 
 ```
 
@@ -237,14 +239,12 @@ public function __construct(
     private ProviderRegistryInterface $paymentProviderRegistry
 ){}
 
+// Get a provider typed registry
+$paymentProviderRegistry = $this->paymentProviderRegistry;
 
 ```
 
-#### Overview
-
-```php
-$paymentProviderRegistry === $this->providerRegistry->use('payment');
-```
+#### How to use
 
 ```php
 use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
@@ -257,59 +257,29 @@ class Example
 
     public function demo()
     {
-        // Get ClientProvider instance from Registry
-        $stripeClient = $this->providerRegistry->use('payment')->get('stripe')->getInstance();
+        // Get ClientProvider from Registry
+        $stripeClient = $this->providerRegistry->use('payment')
+        	->get('stripe')
 
-        // Get default ClientProvider instance from Registry
-        $defaultClient = $this->providerRegistry->use('payment')->getDefault();
-        $defaultClient = $this->providerRegistry->getDefault('payment');
+        // Get default ClientProvider from Registry
+        $defaultClient = $this->providerRegistry->use('payment')
+        	->getDefault();
 
-        // Lorem ipsum
+        // Get return of "makePayment" method from stripe ClientProvider
         $paymentResponse = $this->providerRegistry->use('payment')
-        	->get('stripe')->call('makePayment', $args);
+        	->get('stripe')
+        	->call('makePayment', $args);
 
-        // Lorem ipsum
+        // Get first return of "makePayment" method from multiple ClientProvider
+        // Optionnaly you can pass an specif Exception class as thrid argument
+       	// to force particular Exception for call the next ClientProvider
         $paymentResponse = $this->providerRegistry->use('payment')
         	->get('stripe', 'adyen')
         	->callUntilSuccess('makePayment', $args, PaymentException::class);
 
-        // Lorem ipsum
+        // Get all returns of "makePayment" method from multiple ClientProvider
+        // The thrid argument defined aggregate strategy to use for join responses
         $paymentResponse = $this->providerRegistry->use('payment')
-        	->get('stripe', 'adyen')
-        	->callAndAggregate('makePayment', $args, AggregationLogicEnum::CONCAT);
-    }
-}
-
-```
-
-```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
-
-class Example
-{
-    public function __construct(
-        private ProviderRegistryInterface $paymentProviderRegistry
-    ){}
-
-    public function demo()
-    {
-        // Get ClientProvider instance from Registry
-        $stripeClient = $this->paymentProviderRegistry->get('stripe')->getInstance();
-
-        // Get default ClientProvider instance from Registry
-        $defaultClient = $this->paymentProviderRegistry->getDefault();
-
-        // Lorem ipsum
-        $paymentResponse = $this->paymentProviderRegistry
-        	->get('stripe')->call('makePayment', $args);
-
-        // Lorem ipsum
-        $paymentResponse = $this->paymentProviderRegistry
-        	->get('stripe', 'adyen')
-        	->callUntilSuccess('makePayment', $args, PaymentException::class);
-
-        // Lorem ipsum
-        $paymentResponse = $this->paymentProviderRegistry
         	->get('stripe', 'adyen')
         	->callAndAggregate('makePayment', $args, AggregationLogicEnum::CONCAT);
     }
