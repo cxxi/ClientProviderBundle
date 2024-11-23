@@ -291,18 +291,21 @@ $paymentResponse = $this->providerRegistry
 
 Read more about the usage of the ClientProviderBundle.
 
-- [Attributes](https://github.com/cxxi/ClientProviderBundle/doc/attributes.md)
-- [ProviderRegistry](https://github.com/cxxi/ClientProviderBundle/doc/provider-registry.md)
-- [AggregationLogic](https://github.com/cxxi/ClientProviderBundle/doc/aggregation-logic.md)
-- [Use without attribute](https://github.com/cxxi/ClientProviderBundle/doc/use-without-attribute.md)
-
+- [Attributes](https://github.com/cxxi/ClientProviderBundle/blob/main/doc/attributes.md)
+- [ProviderRegistry](https://github.com/cxxi/ClientProviderBundle/blob/main/doc/provider-registry.md)
+- [AggregationLogic](https://github.com/cxxi/ClientProviderBundle/blob/main/doc/aggregation-logic.md)
+- [Use without attribute](https://github.com/cxxi/ClientProviderBundle/blob/main/doc/use-without-attribute.md)
 
 Maintainers
 -----------
 
-lorem ipsum.
+ClientProviderBundle is looking for maintainers.
+
+If you are interested, feel free to open a PR to ask to be added as a maintainer.
+
+I’ll be glad to hear from you :)
 
 Credits
 -------
 
-lorem ipsum.
+ClientProviderBundle has been originally developed by [Louis-Antoine Lumet](https://github.com/cxxi).
