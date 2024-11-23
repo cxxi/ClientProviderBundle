@@ -240,47 +240,30 @@ public function __construct(
 
 ```php
 
-$stripeClient = $providerRegistry->get('stripe');
-$stripeClient = $paymentProviderRegistry->get('stripe');
+// 
+$paymentProviderRegistry
+$providerRegistry->use('payment')
 
+// Get ClientProvider instance from Registry
+$stripeClient = $paymentProviderRegistry->get('stripe')
+$stripeClient = $providerRegistry->use('payment')->get('stripe');
+
+// Get default ClientProvider instance from Registry
+$defaultClient = $paymentProviderRegistry->getDefault();
 $defaultClient = $providerRegistry->use('payment')->getDefault();
 $defaultClient = $providerRegistry->getDefault('payment');
-$defaultClient = $paymentProviderRegistry->getDefault();
 
-$providerRegistry->hasProviderType('payment'); // true
+// 
+$paymentProviderRegistry->get('stripe')->call('makePayment');
+$providerRegistry->use('payment')->get('stripe')->call('makePayment');
 
-$providerRegistry->use('payment')->getCurrentType(); // 'payment'
-$paymentProviderRegistry->getCurrentType(); // 'payment'
+// 
+$paymentProviderRegistry->get('stripe', 'adyen')->callUntilSuccess('makePayment', PaymentException::class);
+$providerRegistry->use('payment')->get('stripe', 'adyen')->callUntilSuccess('makePayment', PaymentException::class);
 
-// ---- ->as() ?
-
-$providerRegistry->use('payment', 'stripe');
-$paymentProviderRegistry->use('stripe');
-
-$providerRegistry->use('payment', 'stripe')->call('makePayment');
-$paymentProviderRegistry->use('stripe')->call('makePayment');
-
-$providerRegistry
-    ->use('payment')
-    ->callWithFallback('makePayment', PaymentException::class);
-
-$paymentProviderRegistry
-    ->use('stripe')
-    ->callWithFallback('makePayment', PaymentException::class);
-
-$providerRegistry
-    ->use('payment')
-    ->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
-
-$paymentProviderRegistry
-    ->callUntilSuccess('makePayment', ['stripe', 'adyen'], PaymentException::class);
-
-$providerRegistry
-    ->use('payment')
-    ->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
-
-$paymentProviderRegistry
-    ->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
+// 
+$paymentProviderRegistry->get('stripe', 'adyen')->callAndAggregate('makePayment', AggregationLogicEnum::CONCAT);
+$providerRegistry->use('payment')->get('stripe', 'adyen')->callAndAggregate('makePayment', AggregationLogicEnum::CONCAT);
 
 ```
 
