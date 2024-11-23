@@ -22,9 +22,9 @@ If you are not using Flex, enable it in your kernel :
 <?php
 
 return [
-    //...
+    // ...
     Cxxi\ClientProviderBundle\ClientProviderBundle::class => ['all' => true],
-    //...
+    // ...
 ];
 ```
 Configuration
@@ -201,7 +201,7 @@ use Cxxi\ClientProviderBundle\Attribute\AsClientProvider;
 #[AsClientProvider('discord', standalone: true)]
 class Discord implements ProviderInterface
 {
-
+    // ...
 }
 
 // And inject as :
