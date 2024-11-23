@@ -293,6 +293,7 @@ Read more about the usage of the ClientProviderBundle.
 
 - [Attributes](https://www.todo.com)
 - [ProviderRegistry](https://www.todo.com)
+- [AggregationLogic](https://www.todo.com)
 - [Use without attribute](https://www.todo.com)
 
 
