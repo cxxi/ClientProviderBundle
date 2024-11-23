@@ -223,6 +223,8 @@ use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
 public function __construct(
     private ProviderRegistryInterface $providerRegistry
 ){}
+
+
 ```
 
 Alternatively you can use name-based autowiring to inject the ProviderRegistry with a definite Provider type :
@@ -234,49 +236,84 @@ use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
 public function __construct(
     private ProviderRegistryInterface $paymentProviderRegistry
 ){}
+
+
 ```
 
 #### Overview
 
 ```php
+$paymentProviderRegistry === $this->providerRegistry->use('payment');
+```
 
-// Lorem ipsum
-$paymentProviderRegistry
-$providerRegistry->use('payment')
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
 
-// Get ClientProvider instance from Registry
-$stripeClient = $paymentProviderRegistry->get('stripe')
-$stripeClient = $providerRegistry->use('payment')->get('stripe');
+class Example
+{
+    public function __construct(
+        private ProviderRegistryInterface $providerRegistry
+    ){}
 
-// Get default ClientProvider instance from Registry
-$defaultClient = $paymentProviderRegistry->getDefault();
-$defaultClient = $providerRegistry->use('payment')->getDefault();
-$defaultClient = $providerRegistry->getDefault('payment');
+    public function demo()
+    {
+        // Get ClientProvider instance from Registry
+        $stripeClient = $this->providerRegistry->use('payment')->get('stripe')->getInstance();
 
-// Lorem ipsum
-$paymentProviderRegistry
-	->get('stripe')->call('makePayment', $args);
+        // Get default ClientProvider instance from Registry
+        $defaultClient = $this->providerRegistry->use('payment')->getDefault();
+        $defaultClient = $this->providerRegistry->getDefault('payment');
 
-$providerRegistry->use('payment')
-	->get('stripe')->call('makePayment', $args);
+        // Lorem ipsum
+        $paymentResponse = $this->providerRegistry->use('payment')
+        	->get('stripe')->call('makePayment', $args);
 
-// Lorem ipsum
-$paymentProviderRegistry
-	->get('stripe', 'adyen')
-	->callUntilSuccess('makePayment', $args, PaymentException::class);
+        // Lorem ipsum
+        $paymentResponse = $this->providerRegistry->use('payment')
+        	->get('stripe', 'adyen')
+        	->callUntilSuccess('makePayment', $args, PaymentException::class);
 
-$providerRegistry->use('payment')
-	->get('stripe', 'adyen')
-	->callUntilSuccess('makePayment', $args, PaymentException::class);
+        // Lorem ipsum
+        $paymentResponse = $this->providerRegistry->use('payment')
+        	->get('stripe', 'adyen')
+        	->callAndAggregate('makePayment', $args, AggregationLogicEnum::CONCAT);
+    }
+}
 
-// Lorem ipsum
-$paymentProviderRegistry
-	->get('stripe', 'adyen')
-	->callAndAggregate('makePayment', $args, AggregationLogicEnum::CONCAT);
+```
 
-$providerRegistry->use('payment')
-	->get('stripe', 'adyen')
-	->callAndAggregate('makePayment', $args, AggregationLogicEnum::CONCAT);
+```php
+use Cxxi\ClientProviderBundle\Contracts\ProviderRegistryInterface;
+
+class Example
+{
+    public function __construct(
+        private ProviderRegistryInterface $paymentProviderRegistry
+    ){}
+
+    public function demo()
+    {
+        // Get ClientProvider instance from Registry
+        $stripeClient = $this->paymentProviderRegistry->get('stripe')->getInstance();
+
+        // Get default ClientProvider instance from Registry
+        $defaultClient = $this->paymentProviderRegistry->getDefault();
+
+        // Lorem ipsum
+        $paymentResponse = $this->paymentProviderRegistry
+        	->get('stripe')->call('makePayment', $args);
+
+        // Lorem ipsum
+        $paymentResponse = $this->paymentProviderRegistry
+        	->get('stripe', 'adyen')
+        	->callUntilSuccess('makePayment', $args, PaymentException::class);
+
+        // Lorem ipsum
+        $paymentResponse = $this->paymentProviderRegistry
+        	->get('stripe', 'adyen')
+        	->callAndAggregate('makePayment', $args, AggregationLogicEnum::CONCAT);
+    }
+}
 
 ```
 
