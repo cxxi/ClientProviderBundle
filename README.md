@@ -153,15 +153,15 @@ public function __construct(
 #### Default Client
 
 Providers support the definition of a default client. 
-This will result in mounting the default client when injecting the provider it depends on
-
+This will result in mounting the default client when injecting the provider it depends on.  
+  
+If "default" is defined :
 ```php
 #[AsProvider(name: 'payment', default: 'stripe')]
 ```
 
+The Provider can be injected like a ClientProvider :
 ```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
-
 public function __construct(
     private ProviderInterface $paymentProvider
 ){}
