@@ -42,8 +42,8 @@ This bundle enhances your Symfony application by adding the notion of multiple a
 
 ### Provider Class
 
-Providers are abstract classes that define the logic to be implemented by clients and the logic shared by those same clients.
-They group together interchangeable clients that share a defined common role. In this example, we create a payment provider.
+Providers are abstract classes that define the logic to be implemented by ClientProviders and the logic shared by those same ClientProviders.
+They group together interchangeable ClientProviders that share a defined common role. In this example, we create a payment provider.
 
 #### Definition
 
@@ -73,7 +73,7 @@ abstract class PaymentProvider implements ProviderInterface
 
 #### Make Command
 
-Included to speed up and simplify the creation of provider class :
+Included to speed up and simplify the creation of Provider class :
 
 ```bash
 php bin/console make:provider payment
@@ -81,8 +81,8 @@ php bin/console make:provider payment
 
 ### Client Provider Class
 
-Clients are specific implementations that share a common role within the application, they extend from the provider class representing the logic that is implemented. 
-You can have multiple clients that inherit from the same provider and each client should be designed to be interchangeable within the same provider.
+Clients are specific implementations that share a common role within the application, they extend from the Provider class representing the logic that is implemented. 
+You can have multiple ClientProviders that inherit from the same Provider and each ClientProvider should be designed to be interchangeable within the same Provider.
 
 #### Definition
 
@@ -128,7 +128,7 @@ class Adyen extends PaymentProvider
 
 #### Make Command
 
-Included to speed up and simplify the creation of client provider class :
+Included to speed up and simplify the creation of ClientProvider class :
 
 ```bash
 php bin/console make:provider:client stripe
@@ -136,7 +136,7 @@ php bin/console make:provider:client stripe
 
 #### Autowiring
 
-To use a client provider in the application, just inject your client like this :
+To use a ClientProvider in the application, just inject your ClientProvider like this :
 
 ```php
 use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
@@ -152,10 +152,10 @@ public function __construct(
 
 #### Default Client
 
-Providers support the definition of a default client. 
-This will result in mounting the default client when injecting the provider it depends on.  
+Providers support the definition of a default ClientProvider. 
+This will result in mounting the default ClientProvider when injecting the provider it depends on.  
   
-If "default" is defined :
+If a default ClientProvider is defined :
 ```php
 #[AsProvider(name: 'payment', default: 'stripe')]
 ```
@@ -187,8 +187,8 @@ parameters:
 
 #### Standalone Client
 
-A client can be standalone and therefore not depend on a specific provider. 
-This allows to keep the autowiring logic and benefit from the ProviderRegistry framework without depending on a Provider class in the situation where the client will not have an interchangeable competitor.
+A ClientProvider can be standalone and therefore not depend on a specific Provider. 
+This allows to keep the autowiring logic and benefit from the ProviderRegistry framework without depending on a Provider class in the situation where the ClientProvider will not have an interchangeable competitor.
 
 ```php
 // src/Provider/Client/Discord.php
@@ -226,7 +226,7 @@ public function __construct(
 ){}
 ```
 
-Alternatively you can use named injection to autowire the ProviderRegistry with a definite provider type :
+Alternatively you can use named injection to autowire the ProviderRegistry with a definite Provider type :
 
 
 ```php
