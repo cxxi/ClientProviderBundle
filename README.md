@@ -291,10 +291,10 @@ $paymentResponse = $this->providerRegistry
 
 Read more about the usage of the ClientProviderBundle.
 
-- [Attributes](https://www.todo.com)
-- [ProviderRegistry](https://www.todo.com)
-- [AggregationLogic](https://www.todo.com)
-- [Use without attribute](https://www.todo.com)
+- [Attributes](https://github.com/cxxi/ClientProviderBundle/doc/attributes.md)
+- [ProviderRegistry](https://github.com/cxxi/ClientProviderBundle/doc/provider-registry.md)
+- [AggregationLogic](https://github.com/cxxi/ClientProviderBundle/doc/aggregation-logic.md)
+- [Use without attribute](https://github.com/cxxi/ClientProviderBundle/doc/use-without-attribute.md)
 
 
 Maintainers
