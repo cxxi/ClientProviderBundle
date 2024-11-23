@@ -236,50 +236,7 @@ public function __construct(
 ){}
 ```
 
-### Learn more
-
-Read more about the usage of the clientProviderBundle.
-
-- [Attributes](https://www.todo.com)
-- [ProviderRegistry](https://www.todo.com)
-- [Use without attribute](https://www.todo.com)
-
-### TODO
-
-```php
-#[AsProvider(name: 'payment', default: 'stripe')]
-```
-
-```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
-
-public function __construct(
-    private ProviderInterface $paymentProvider
-){}
-
-```
-
-
-```php
-#[AsClientProvider(name: 'adyen', standalone: true)]
-```
-
-```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
-
-public function __construct(
-    private ProviderInterface $stripePaymentProvider
-){}
-```
-
-```php
-use Cxxi\ClientProviderBundle\Contracts\ProviderInterface;
-
-public function __construct(
-    private ProviderInterface $paymentProvider
-){}
-```
-
+#### Overview
 
 ```php
 
@@ -326,6 +283,15 @@ $paymentProviderRegistry
     ->callAndAggregate('makePayment', ['stripe', 'adyen'], AggregationLogicEnum::CONCAT);
 
 ```
+
+### Learn more
+
+Read more about the usage of the ClientProviderBundle.
+
+- [Attributes](https://www.todo.com)
+- [ProviderRegistry](https://www.todo.com)
+- [Use without attribute](https://www.todo.com)
+
 
 Maintainers
 -----------
