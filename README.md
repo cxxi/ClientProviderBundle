@@ -248,26 +248,30 @@ $paymentProviderRegistry = $this->paymentProviderRegistry;
 
 Get ClientProvider from Registry :
 ```php
-$stripeClient = $this->providerRegistry->use('payment')
+$stripeClient = $this->providerRegistry
+    ->use('payment')
     ->get('stripe');
 ```
 
 Get default ClientProvider from Registry :
 ```php
-$defaultClient = $this->providerRegistry->use('payment')
+$defaultClient = $this->providerRegistry
+    ->use('payment')
     ->getDefault();
 ```
 
 Get return of "makePayment" method from stripe ClientProvider :
 ```php
-$paymentResponse = $this->providerRegistry->use('payment')
+$paymentResponse = $this->providerRegistry
+    ->use('payment')
     ->get('stripe')
     ->call('makePayment', $args);
 ```
 
 Get first return of "makePayment" method from multiple ClientProvider :
 ```php
-$paymentResponse = $this->providerRegistry->use('payment')
+$paymentResponse = $this->providerRegistry
+    ->use('payment')
     ->get('stripe', 'adyen')
     ->callUntilSuccess('makePayment', $args, PaymentException::class);
 ```
@@ -276,7 +280,8 @@ $paymentResponse = $this->providerRegistry->use('payment')
 
 Get all returns of "makePayment" method from multiple ClientProvider :
 ```php
-$paymentResponse = $this->providerRegistry->use('payment')
+$paymentResponse = $this->providerRegistry
+    ->use('payment')
     ->get('stripe', 'adyen')
     ->callAndAggregate('makePayment', $args, AggregationLogicEnum::CONCAT);
 ```
