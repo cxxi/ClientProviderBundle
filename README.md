@@ -240,7 +240,7 @@ public function __construct(
 
 ```php
 
-// 
+// Lorem ipsum
 $paymentProviderRegistry
 $providerRegistry->use('payment')
 
@@ -253,17 +253,26 @@ $defaultClient = $paymentProviderRegistry->getDefault();
 $defaultClient = $providerRegistry->use('payment')->getDefault();
 $defaultClient = $providerRegistry->getDefault('payment');
 
-// 
-$paymentProviderRegistry->get('stripe')->call('makePayment');
-$providerRegistry->use('payment')->get('stripe')->call('makePayment');
+// Lorem ipsum
+$paymentProviderRegistry
+	->get('stripe')->call('makePayment');
 
-// 
-$paymentProviderRegistry->get('stripe', 'adyen')->callUntilSuccess('makePayment', PaymentException::class);
-$providerRegistry->use('payment')->get('stripe', 'adyen')->callUntilSuccess('makePayment', PaymentException::class);
+$providerRegistry->use('payment')
+	->get('stripe')->call('makePayment');
 
-// 
-$paymentProviderRegistry->get('stripe', 'adyen')->callAndAggregate('makePayment', AggregationLogicEnum::CONCAT);
-$providerRegistry->use('payment')->get('stripe', 'adyen')->callAndAggregate('makePayment', AggregationLogicEnum::CONCAT);
+// Lorem ipsum
+$paymentProviderRegistry
+	->get('stripe', 'adyen')->callUntilSuccess('makePayment', PaymentException::class);
+
+$providerRegistry->use('payment')
+	->get('stripe', 'adyen')->callUntilSuccess('makePayment', PaymentException::class);
+
+// Lorem ipsum
+$paymentProviderRegistry
+	->get('stripe', 'adyen')->callAndAggregate('makePayment', AggregationLogicEnum::CONCAT);
+
+$providerRegistry->use('payment')
+	->get('stripe', 'adyen')->callAndAggregate('makePayment', AggregationLogicEnum::CONCAT);
 
 ```
 
