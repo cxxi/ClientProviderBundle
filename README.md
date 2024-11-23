@@ -146,9 +146,9 @@ public function __construct(
 ){}
 ```
 
-> ***GOOD TO KNOW***
-> *Service injection use the concept of "argument name-based autowiring"*
-> *Note use of ProviderInterface*
+> ***GOOD TO KNOW***  
+> *Service injection use the concept of "argument name-based autowiring"*  
+> *Note use of ProviderInterface*  
 
 #### Default Client
 
