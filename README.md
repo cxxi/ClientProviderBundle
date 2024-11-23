@@ -185,7 +185,7 @@ parameters:
 #[AsProvider(name: 'payment', default: '%app.default.payment_provider%')]
 ```
 
-### Standalone Client
+#### Standalone Client
 
 A client can be standalone and therefore not depend on a specific provider. 
 This allows to keep the autowiring logic and benefit from the ProviderRegistry framework without depending on a Provider class in the situation where the client will not have an interchangeable competitor.
